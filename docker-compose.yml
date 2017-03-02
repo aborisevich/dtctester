@@ -17,6 +17,7 @@ services:
       - MSDTC_TEST_DATABASE=ODBCTest
       - MSDTC_SQLSERVER_PASSWORD=Passw0rd
       - MSDTC_TESTER_HOSTNAME=dtctester
+      - ACCEPT_EULA=Y
 
   dtctester:
     build:

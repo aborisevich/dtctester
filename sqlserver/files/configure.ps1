@@ -27,6 +27,7 @@ function ConfigureMSDTC()
   Set-ItemProperty -Path 'HKLM:\Software\Microsoft\MSDTC' -Name AllowOnlySecureRpcCalls -Value 1
   Set-ItemProperty -Path 'HKLM:\Software\Microsoft\MSDTC' -Name FallbackToUnsecureRPCIfNecessary -Value 0
   Set-ItemProperty -Path 'HKLM:\Software\Microsoft\MSDTC' -Name TurnOffRpcSecurity -Value 0
+  Set-DtcNetworkSetting -AuthenticationLevel NoAuth -Confirm:$false
   Set-Service MSDTC -StartupType Automatic
   Restart-Service MSDTC -Force
 }

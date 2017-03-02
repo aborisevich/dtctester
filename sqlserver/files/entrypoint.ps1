@@ -26,6 +26,7 @@ process {
   $args = @()
   $args += ("-sa_password " + $sa_password)
   $args += ("-attach_dbs " + $attach_dbs)
+  $args += ("-ACCEPT_EULA Y" )
   $args += ("-Verbose ")
   $cmd = ".\\new_start.ps1"
 

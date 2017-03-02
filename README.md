@@ -82,27 +82,21 @@ dtctester_1  | Executed: C:\dtctester\dtctester.exe
 dtctester_1  | DSN:  sqlserver
 dtctester_1  | User Name: sa
 dtctester_1  | Password: Passw0rd
-dtctester_1  | tablename= #dtc19901
-dtctester_1  | Creating Temp Table for Testing: #dtc19901
-dtctester_1  | Warning: No Columns in Result Set From Executing: 'create table #dtc19901 (ival int)'
+dtctester_1  | tablename= #dtc24145
+dtctester_1  | Creating Temp Table for Testing: #dtc24145
+dtctester_1  | Warning: No Columns in Result Set From Executing: 'create table #dtc24145 (ival int)'
 dtctester_1  | Initializing DTC
 dtctester_1  | Beginning DTC Transaction
 dtctester_1  | Enlisting Connection in Transaction
-dtctester_1  | Error:
-dtctester_1  | SQLSTATE=25S12,Native error=-2147168242,msg='[Microsoft][ODBC SQL Server Driver]Distributed transaction error'
-dtctester_1  | Error:
-dtctester_1  | SQLSTATE=24000,Native error=0,msg=[Microsoft][ODBC SQL Server Driver]Invalid cursor state
-dtctester_1  | Typical Errors in DTC Output When
-dtctester_1  | a.  Firewall Has Ports Closed
-dtctester_1  | -OR-
-dtctester_1  | b.  Bad WINS/DNS entries
-dtctester_1  | -OR-
-dtctester_1  | c.  Misconfigured network
-dtctester_1  | -OR-
-dtctester_1  | d.  Misconfigured SQL Server machine that has multiple netcards.
-dtctester_1  | Aborting DTC Transaction
+dtctester_1  | Executing SQL Statement in DTC Transaction
+dtctester_1  | Inserting into Temp...insert into #dtc24145 values (1)
+dtctester_1  | Warning: No Columns in Result Set From Executing: 'insert into #dtc24145 values (1) '
+dtctester_1  | Verifying Insert into Temp...select * from #dtc24145 (should be 1): 1
+dtctester_1  | Press enter to commit transaction.
+dtctester_1  | Commiting DTC Transaction
 dtctester_1  | Releasing DTC Interface Pointers
 dtctester_1  | Successfully Released pTransaction Pointer.
+dtctester_1  | Disconnecting from Database and Cleaning up Handles
 dtctester_1  |
 dtctester_1  | VERBOSE: Running Test-Dtc cmdlet...
 dtctester_1  | Get-NetFirewallRule : There are no more endpoints available from the endpoint
@@ -119,34 +113,6 @@ dtctester_1  | VERBOSE: Test-Dtc cmdlet failed...
 dtctester_1  |  There are no more endpoints available from the endpoint mapper.
 ```
 
-# BFE service cannot start
-The suspected problem is that the Windows Firewall service cannot start due to
- failures in some of its dependances. This command lists all dependant services:
-```
-PS C:\> Get-Service BFE,MpsSvc,RpcEptMapper,RpcSs,DcomLaunch,MpsDrv
-
-Status   Name               DisplayName
-------   ----               -----------
-Stopped  BFE                Base Filtering Engine
-Running  DcomLaunch         DCOM Server Process Launcher
-Running  MpsDrv             Windows Firewall Authorization Driver
-Stopped  MpsSvc             Windows Firewall
-Running  RpcEptMapper       RPC Endpoint Mapper
-Running  RpcSs              Remote Procedure Call (RPC)
-```
-```
-PS C:\> Get-Service BFE -DependentServices
-
-Status   Name               DisplayName
-------   ----               -----------
-Stopped  WdNisSvc           Windows Defender Network Inspection...
-Stopped  WdNisDrv           Windows Defender Network Inspection...
-Stopped  SharedAccess       Internet Connection Sharing (ICS)
-Stopped  RemoteAccess       Routing and Remote Access
-Stopped  PolicyAgent        IPsec Policy Agent
-Stopped  NcaSvc             Network Connectivity Assistant
-Stopped  MpsSvc             Windows Firewall
-Stopped  IKEEXT             IKE and AuthIP IPsec Keying Modules
 ```
 
 [dtctester]: https://support.microsoft.com/en-us/kb/293799
